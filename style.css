@@ -1,9 +1,10 @@
 /* General body and layout styles */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     overflow-x: hidden; /* Hide horizontal scrollbar */
     background: #2c3e50;
+    color: #ecf0f1;
     animation: fadeIn 2s ease-out; /* Page load animation */
 }
 
@@ -16,28 +17,28 @@ body {
     }
 }
 
-/* Header */
+/* Header styles */
 header {
     text-align: center;
-    margin: 20px 0;
+    margin: 40px 0;
     animation: neonText 2s ease-in-out infinite alternate; /* Neon glow animation */
 }
 
 @keyframes neonText {
     0% {
         color: #ff0080;
-        text-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080;
+        text-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080, 0 0 15px #ff0080, 0 0 20px #ff0080;
     }
     100% {
         color: #ff8c00;
-        text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff8c00;
+        text-shadow: 0 0 5px #ff8c00, 0 0 10px #ff8c00, 0 0 15px #ff8c00, 0 0 20px #ff8c00;
     }
 }
 
-/* Footer */
+/* Footer styles */
 footer {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 40px;
     animation: neonText 2s ease-in-out infinite alternate; /* Same neon glow */
 }
 
@@ -48,7 +49,7 @@ footer {
     left: -100px;
     width: 50px;
     height: 50px;
-    background-image: url('https://path-to-bird-image.png'); /* Replace with actual bird image */
+    background-image: url('https://www.publicdomainpictures.net/pictures/320000/velka/flying-bird-1527738474R02.jpg'); /* Replace with actual bird image */
     background-size: contain;
     animation: fly 5s linear infinite;
 }
@@ -103,26 +104,30 @@ body.loaded .loading-overlay {
 /* Styling for video section */
 .video-container {
     display: flex;
-    overflow-x: auto;
-    gap: 20px;
+    overflow-x: auto; /* Enables horizontal scroll */
+    gap: 30px;
     padding: 20px;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x mandatory; /* Forces snapping to video */
     animation: slideIn 1s ease-out;
+    margin: 40px;
 }
 
 .video-container video {
+    flex-shrink: 0; /* Prevents videos from shrinking */
     width: 45%;
     margin: 10px 0;
     border: 2px solid #ccc;
     border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     animation: pulse-border 1.5s infinite;
+    transition: transform 0.3s ease;
 }
 
-/* Video sequential play */
-.video-container video {
-    scroll-snap-align: start;
+.video-container video:hover {
+    transform: scale(1.05);
 }
 
+/* Video sequential play animation */
 @keyframes pulse-border {
     0% {
         box-shadow: 0 0 20px #00ffab, 0 0 40px #00ffab;
@@ -132,11 +137,6 @@ body.loaded .loading-overlay {
     }
 }
 
-/* Hide the loading overlay after the page is loaded */
-body.loaded .loading-overlay {
-    display: none;
-}
-
 /* Scroll animation */
 @keyframes slideIn {
     from {
@@ -144,5 +144,15 @@ body.loaded .loading-overlay {
     }
     to {
         transform: translateX(0);
+    }
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .video-container {
+        justify-content: center;
+    }
+    .video-container video {
+        width: 90%; /* Full width for mobile */
     }
 }
