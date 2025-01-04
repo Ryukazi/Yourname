@@ -3,49 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Player Website</title>
+    <title>Neon Video Player</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f0f8ff;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
+            background: linear-gradient(to bottom, #1e1e2f, #2c3e50);
+            color: #fff;
+            overflow-x: hidden;
         }
         header {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
+            background: linear-gradient(90deg, #ff0080, #ff8c00);
+            text-align: center;
+            padding: 20px;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            animation: neon-border 2s infinite alternate;
+        }
+        @keyframes neon-border {
+            from {
+                box-shadow: 0 0 15px #ff0080, 0 0 30px #ff0080;
+            }
+            to {
+                box-shadow: 0 0 25px #ff8c00, 0 0 50px #ff8c00;
+            }
+        }
+        section {
+            padding: 40px 20px;
+            text-align: center;
         }
         video {
             margin-top: 20px;
             max-width: 90%;
-            border: 2px solid #333;
+            border: 3px solid #00ffab;
+            box-shadow: 0 0 20px #00ffab, 0 0 40px #00ffab;
+            border-radius: 10px;
+            animation: pulse-border 1.5s infinite;
+        }
+        @keyframes pulse-border {
+            0% {
+                box-shadow: 0 0 20px #00ffab, 0 0 40px #00ffab;
+            }
+            100% {
+                box-shadow: 0 0 30px #00ffab, 0 0 60px #00ffab;
+            }
         }
         footer {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
+            background: linear-gradient(90deg, #ff8c00, #ff0080);
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
             position: fixed;
             bottom: 0;
             width: 100%;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+        }
+        footer a {
+            color: #00ffab;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>My Video Player</h1>
+        <h1>Welcome to My Neon Video Player</h1>
     </header>
     <section>
-        <p>Watch your favorite video below!</p>
+        <h2>Enjoy Watching!</h2>
         <video controls>
-            <source src="https://drive.google.com/file/d/1USDkuZs2HpHewG91XqragTTq4SGSIoQl/view?usp=drivesdk" type="https://drive.google.com/file/d/1USDkuZs2HpHewG91XqragTTq4SGSIoQl/view?usp=drivesdk">
+            <source src="https://drive.google.com/uc?export=preview&id=1USDkuZs2HpHewG91XqragTTq4SGSIoQl" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <p>Replace "your-video.mp4"  Your name ❤️.</p>
+        <p>Make sure to share this awesome video!</p>
     </section>
     <footer>
-        <p>© 2025 My Video Player</p>
+        <p>© 2025 Neon Video Player | Designed with <a href="https://github.com/ryukazi">GitHub Pages</a></p>
     </footer>
 </body>
 </html>
