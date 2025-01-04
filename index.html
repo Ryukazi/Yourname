@@ -23,27 +23,27 @@
         <!-- Video Player Section -->
         <div class="video-container">
             <video controls id="video1">
-                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735997576507-531.mp4" type="video/mp4">
+                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998848452-761.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 
             <video controls id="video2">
-                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735997576508-532.mp4" type="video/mp4">
+                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998858687-288.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 
             <video controls id="video3">
-                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735997576509-533.mp4" type="video/mp4">
+                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998893726-199.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 
             <video controls id="video4">
-                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735997576510-534.mp4" type="video/mp4">
+                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998898920-822.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 
             <video controls id="video5">
-                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735997576511-535.mp4" type="video/mp4">
+                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998935398-584.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
@@ -59,15 +59,14 @@
 
     <script src="script.js"></script>
     <script>
-        // Add 'loaded' class to body to hide loading animation once page is fully loaded
         window.addEventListener('load', () => {
             document.body.classList.add('loaded');
         });
 
-        // JavaScript for sequential video play
         const videos = document.querySelectorAll('video');
         let currentVideo = 0;
 
+        // Play videos sequentially
         videos.forEach((video, index) => {
             video.addEventListener('ended', () => {
                 if (currentVideo < videos.length - 1) {
@@ -75,6 +74,13 @@
                     videos[currentVideo].play();
                 }
             });
+        });
+
+        // Automatically start the first video when the page loads
+        window.addEventListener('load', () => {
+            if (videos.length > 0) {
+                videos[0].play();
+            }
         });
     </script>
 </body>
