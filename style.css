@@ -1,157 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Neon Video Player</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #1e1e2f, #2c3e50);
-            color: #fff;
-            overflow-x: hidden;
-        }
+/* General body and layout styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    background: #2c3e50;
+    animation: fadeIn 2s ease-out; /* Page load animation */
+}
 
-        header {
-            background: linear-gradient(90deg, #ff0080, #ff8c00);
-            text-align: center;
-            padding: 20px;
-            color: #fff;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            animation: neon-border 2s infinite alternate;
-        }
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 
-        @keyframes neon-border {
-            from {
-                box-shadow: 0 0 15px #ff0080, 0 0 30px #ff0080;
-            }
-            to {
-                box-shadow: 0 0 25px #ff8c00, 0 0 50px #ff8c00;
-            }
-        }
+/* Header */
+header {
+    text-align: center;
+    margin: 20px 0;
+    animation: neonText 2s ease-in-out infinite alternate; /* Neon glow animation */
+}
 
-        section {
-            padding: 40px 20px;
-            text-align: center;
-        }
+@keyframes neonText {
+    0% {
+        color: #ff0080;
+        text-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080;
+    }
+    100% {
+        color: #ff8c00;
+        text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff8c00;
+    }
+}
 
-        .video-container {
-            display: flex;
-            overflow-x: auto;
-            gap: 20px;
-            padding: 20px;
-        }
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    animation: neonText 2s ease-in-out infinite alternate; /* Same neon glow */
+}
 
-        video {
-            margin-top: 20px;
-            max-width: 90%;
-            border: 3px solid #00ffab;
-            box-shadow: 0 0 20px #00ffab, 0 0 40px #00ffab;
-            border-radius: 10px;
-            animation: pulse-border 1.5s infinite;
-        }
+/* Bird flying animation styles */
+.bird {
+    position: fixed;
+    top: 20px;
+    left: -100px;
+    width: 50px;
+    height: 50px;
+    background-image: url('https://path-to-bird-image.png'); /* Replace with actual bird image */
+    background-size: contain;
+    animation: fly 5s linear infinite;
+}
 
-        @keyframes pulse-border {
-            0% {
-                box-shadow: 0 0 20px #00ffab, 0 0 40px #00ffab;
-            }
-            100% {
-                box-shadow: 0 0 30px #00ffab, 0 0 60px #00ffab;
-            }
-        }
+@keyframes fly {
+    0% {
+        left: -100px;
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-50px);
+    }
+    100% {
+        left: 100vw;
+        transform: translateY(0);
+    }
+}
 
-        footer {
-            background: linear-gradient(90deg, #ff8c00, #ff0080);
-            color: #fff;
-            text-align: center;
-            padding: 15px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
-        }
+/* Loading spinner */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
 
-        footer a {
-            color: #00ffab;
-            text-decoration: none;
-        }
+.loading-spinner {
+    border: 4px solid transparent;
+    border-top: 4px solid #333;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
 
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Welcome to My Video Player</h1>
-    </header>
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
-    <section>
-        <h2>Enjoy Watching!</h2>
-        <div class="video-container" id="video-container">
-            <!-- Video 1 -->
-            <video controls loop>
-                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735997576507-531.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+/* Hide the loading overlay after the page is loaded */
+body.loaded .loading-overlay {
+    display: none;
+}
 
-            <!-- Video 2 -->
-            <video controls loop>
-                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998848452-761.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+/* Styling for video section */
+.video-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px;
+    scroll-snap-type: x mandatory;
+    animation: slideIn 1s ease-out;
+}
 
-            <!-- Video 3 -->
-            <video controls loop>
-                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998858687-288.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+.video-container video {
+    width: 45%;
+    margin: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    animation: pulse-border 1.5s infinite;
+}
 
-            <!-- Video 4 -->
-            <video controls loop>
-                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998893726-199.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+/* Video sequential play */
+.video-container video {
+    scroll-snap-align: start;
+}
 
-            <!-- Video 5 -->
-            <video controls loop>
-                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998898920-822.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+@keyframes pulse-border {
+    0% {
+        box-shadow: 0 0 20px #00ffab, 0 0 40px #00ffab;
+    }
+    100% {
+        box-shadow: 0 0 30px #00ffab, 0 0 60px #00ffab;
+    }
+}
 
-            <!-- Video 6 -->
-            <video controls loop>
-                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998935398-584.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+/* Hide the loading overlay after the page is loaded */
+body.loaded .loading-overlay {
+    display: none;
+}
 
-        </div>
-        <p>Make sure to share this awesome video!</p>
-    </section>
-
-    <footer>
-        <p>© 2025 Video Player | Designed by <a href="https://github.com/ryukazi" target="_blank">Ryukazi</a></p>
-    </footer>
-
-    <script>
-        const videoContainer = document.getElementById('video-container');
-        const videos = videoContainer.querySelectorAll('video');
-
-        videoContainer.addEventListener('scroll', () => {
-            // Check if the user has scrolled to the end of the container
-            if (videoContainer.scrollLeft + videoContainer.clientWidth >= videoContainer.scrollWidth) {
-                // Restart the videos by resetting the scroll position to the start
-                videoContainer.scrollLeft = 0;
-
-                // Play the first video again if it's paused
-                videos[0].currentTime = 0;
-                videos[0].play();
-            }
-        });
-    </script>
-</body>
-</html>
+/* Scroll animation */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
