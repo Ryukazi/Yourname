@@ -6,45 +6,150 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Neon Video Player</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* General body and layout styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Bird flying animation styles */
+        .bird {
+            position: fixed;
+            top: 20px;
+            left: -100px;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://path-to-bird-image.png'); /* Replace with actual bird image */
+            background-size: contain;
+            animation: fly 5s linear infinite;
+        }
+
+        @keyframes fly {
+            0% {
+                left: -100px;
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-50px);
+            }
+            100% {
+                left: 100vw;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading spinner */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-spinner {
+            border: 4px solid transparent;
+            border-top: 4px solid #333;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Hide the loading overlay after the page is loaded */
+        body.loaded .loading-overlay {
+            display: none;
+        }
+
+        /* Styling for video section */
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .video-container video {
+            width: 45%;
+            margin: 10px 0;
+            border: 2px solid #ccc;
+        }
+    </style>
 </head>
 <body>
+    <!-- Loading Animation -->
+    <div class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
     <header>
         <h1>Welcome to My Video Player</h1>
     </header>
 
     <section>
         <h2>Enjoy Watching!</h2>
-        <video id="video-player" controls>
-            <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735997576507-531.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <video controls>
-            <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998848452-761.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <video controls>
-            <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998858687-288.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <video controls>
-            <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998893726-199.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <video controls>
-            <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998898920-822.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <video controls>
-            <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998935398-584.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <p>Make sure to share this awesome video!</p>
+
+        <!-- Video Player Section -->
+        <div class="video-container">
+            <video controls>
+                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735997576507-531.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <video controls>
+                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735997576508-532.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <video controls>
+                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735997576509-533.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <video controls>
+                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735997576510-534.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <p>Make sure to share this awesome collection of videos!</p>
     </section>
 
     <footer>
         <p>© 2025 Video Player | Designed by <a href="https://github.com/ryukazi" target="_blank">Ryukazi</a></p>
     </footer>
 
+    <div class="bird"></div>
+
     <script src="script.js"></script>
+    <script>
+        // Add 'loaded' class to body to hide loading animation once page is fully loaded
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+    </script>
 </body>
 </html>
