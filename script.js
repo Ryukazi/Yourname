@@ -1,15 +1,20 @@
-// Get the video element
-const video = document.querySelector('.video-container video');
+// Select all video elements
+const videos = document.querySelectorAll('video');
+let currentVideoIndex = 0;
 
-// Play the video when the page loads
-window.addEventListener('load', () => {
-    if (video) {
-        video.play();
-    }
+// Function to play videos sequentially
+videos.forEach((video, index) => {
+    video.addEventListener('ended', () => {
+        if (currentVideoIndex < videos.length - 1) {
+            currentVideoIndex++;
+            videos[currentVideoIndex].play();
+        }
+    });
 });
 
-// If you want to ensure the video plays only once and doesn't auto-loop, remove looping behavior from the video
-video.addEventListener('ended', () => {
-    console.log('Video has ended.');
-    // If you need to do something after the video ends (e.g., redirect or show a message), you can do that here
+// Automatically play the first video when the page loads
+window.addEventListener('load', () => {
+    if (videos.length > 0) {
+        videos[0].play();
+    }
 });
