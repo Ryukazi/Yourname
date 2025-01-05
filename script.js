@@ -1,18 +1,21 @@
-// Select all video elements
 const videos = document.querySelectorAll('video');
-let currentVideoIndex = 0;
+let currentVideo = 0;
 
-// Function to play videos sequentially
+// Play videos sequentially
 videos.forEach((video, index) => {
+    video.loop = false; // Disable default looping
     video.addEventListener('ended', () => {
-        if (currentVideoIndex < videos.length - 1) {
-            currentVideoIndex++;
-            videos[currentVideoIndex].play();
+        if (currentVideo < videos.length - 1) {
+            currentVideo++;
+            videos[currentVideo].play();
+        } else {
+            currentVideo = 0; // Reset to the first video
+            videos[currentVideo].play();
         }
     });
 });
 
-// Automatically play the first video when the page loads
+// Automatically start the first video when the page loads
 window.addEventListener('load', () => {
     if (videos.length > 0) {
         videos[0].play();
