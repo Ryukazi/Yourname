@@ -50,27 +50,7 @@
         <p>© 2025 Video Player | Designed by <a href="https://github.com/ryukazi" target="_blank">Ryukazi</a></p>
     </footer>
 
-    <script src="script.js"></script>
-    <script>
-        const videos = document.querySelectorAll('video');
-        let currentVideo = 0;
-
-        // Play videos sequentially
-        videos.forEach((video, index) => {
-            video.addEventListener('ended', () => {
-                if (currentVideo < videos.length - 1) {
-                    currentVideo++;
-                    videos[currentVideo].play();
-                }
-            });
-        });
-
-        // Automatically start the first video when the page loads
-        window.addEventListener('load', () => {
-            if (videos.length > 0) {
-                videos[0].play();
-            }
-        });
-    </script>
+    <!-- Including external JS with defer -->
+    <script src="script.js" defer></script>
 </body>
 </html>
