@@ -8,11 +8,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Loading Animation -->
-    <div class="loading-overlay">
-        <div class="loading-spinner"></div>
-    </div>
-
     <header>
         <h1>Welcome to My Video Player</h1>
     </header>
@@ -55,14 +50,8 @@
         <p>© 2025 Video Player | Designed by <a href="https://github.com/ryukazi" target="_blank">Ryukazi</a></p>
     </footer>
 
-    <div class="bird"></div>
-
     <script src="script.js"></script>
     <script>
-        window.addEventListener('load', () => {
-            document.body.classList.add('loaded');
-        });
-
         const videos = document.querySelectorAll('video');
         let currentVideo = 0;
 
