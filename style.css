@@ -11,19 +11,19 @@ body {
 /* Header styles */
 header {
     text-align: center;
-    margin: 40px 0;
-    font-size: 3em;
+    margin: 20px 0;
+    font-size: 2em; /* Reduced font size for a cleaner look */
     color: #ff0000; 
-    text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0044; /* Subtle shadow effect */
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0044, 0 0 30px #ff0066; /* Enhanced neon effect */
 }
 
 /* Footer styles */
 footer {
     text-align: center;
-    margin-top: 40px;
-    font-size: 1em;
+    margin-top: 20px;
+    font-size: 0.9em; /* Slightly smaller footer text */
     color: #ff8c00; 
-    text-shadow: 0 0 5px #ff8c00, 0 0 10px #ff4500; /* Subtle shadow effect */
+    text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff4500, 0 0 30px #ff6347; /* Neon footer text */
 }
 
 /* Video container styles */
@@ -51,11 +51,20 @@ footer {
 .video-container video:hover {
     transform: scale(1.05); /* Slight zoom effect */
     border-color: #ff8c00; /* Change border color to orange on hover */
+    box-shadow: 0 6px 12px rgba(255, 140, 0, 0.8); /* Add glowing shadow on hover */
 }
 
 /* Media query for responsiveness */
 @media (max-width: 768px) {
     .video-container {
         grid-template-columns: 1fr; /* Single-column layout for small screens */
+    }
+
+    header {
+        font-size: 1.5em; /* Smaller header font size on small screens */
+    }
+
+    footer {
+        font-size: 0.8em; /* Adjust footer font size */
     }
 }
