@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Neon Video Player</title>
+    <title>Fullscreen Video Player</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,44 +13,46 @@
     </header>
 
     <section>
-        <h2>Enjoy Watching!</h2>
-
-        <!-- Video Player Section -->
         <div class="video-container">
-            <video controls id="video1">
+            <video id="video1" controls loop>
                 <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998848452-761.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 
-            <video controls id="video2">
+            <video id="video2" controls loop>
                 <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998858687-288.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 
-            <video controls id="video3">
+            <video id="video3" controls loop>
                 <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998893726-199.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 
-            <video controls id="video4">
+            <video id="video4" controls loop>
                 <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998898920-822.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 
-            <video controls id="video5">
+            <video id="video5" controls loop>
                 <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998935398-584.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
-
-        <p>Make sure to share this awesome collection of videos!</p>
     </section>
 
     <footer>
         <p>© 2025 Video Player | Designed by <a href="https://github.com/ryukazi" target="_blank">Ryukazi</a></p>
     </footer>
-
-    <!-- Including external JS with defer -->
-    <script src="script.js" defer></script>
+    <script>
+        // Ensures seamless loop through all videos
+        const videos = document.querySelectorAll('video');
+        videos.forEach((video, index) => {
+            video.addEventListener('ended', () => {
+                const nextVideo = videos[(index + 1) % videos.length];
+                nextVideo.play();
+            });
+        });
+    </script>
 </body>
 </html>
