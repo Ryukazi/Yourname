@@ -6,6 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fullscreen Video Player</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Add styles here */
+        header h1 {
+            font-size: 24px; /* Adjust font size */
+            color: red; /* Optional: keep the red color */
+            text-align: center; /* Optional: center the text */
+        }
+
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px; /* Space between videos */
+        }
+
+        video {
+            width: 300px; /* Adjust video size */
+            height: auto;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -36,6 +61,11 @@
 
             <video id="video5" controls loop>
                 <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998935398-584.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <video id="video6" controls loop>
+                <source src="https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735997576507-531.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
