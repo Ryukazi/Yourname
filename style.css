@@ -13,14 +13,8 @@ header {
     text-align: center;
     margin: 40px 0;
     font-size: 3em;
-    color: #ff0000; /* Red glow */
-    text-shadow: 
-        0 0 10px #ff0000, 
-        0 0 20px #ff0000, 
-        0 0 30px #ff0000, 
-        0 0 40px #ff0044, 
-        0 0 50px #ff0044, 
-        0 0 75px #ff0044; /* Red to purple glow */
+    color: #ff0000; 
+    text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0044; /* Subtle shadow effect */
 }
 
 /* Footer styles */
@@ -28,310 +22,40 @@ footer {
     text-align: center;
     margin-top: 40px;
     font-size: 1em;
-    color: #ff8c00; /* Orange glow */
-    text-shadow: 
-        0 0 10px #ff8c00, 
-        0 0 20px #ff8c00, 
-        0 0 30px #ff8c00, 
-        0 0 40px #ff4500, 
-        0 0 50px #ff4500; /* Orange to red glow */
+    color: #ff8c00; 
+    text-shadow: 0 0 5px #ff8c00, 0 0 10px #ff4500; /* Subtle shadow effect */
 }
 
-/* Bird flying animation styles */
-.bird {
-    position: fixed;
-    top: 20px;
-    left: -100px;
-    width: 50px;
-    height: 50px;
-    background-image: url('https://www.publicdomainpictures.net/pictures/320000/velka/flying-bird-1527738474R02.jpg'); /* Replace with actual bird image */
-    background-size: contain;
-    animation: fly 5s linear infinite;
-}
-
-@keyframes fly {
-    0% {
-        left: -100px;
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-50px);
-    }
-    100% {
-        left: 100vw;
-        transform: translateY(0);
-    }
-}
-
-/* Loading spinner */
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Dark background for loading screen */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.loading-spinner {
-    border: 4px solid transparent;
-    border-top: 4px solid #ff00ff; /* Pink glow for spinner */
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Hide the loading overlay after the page is loaded */
-body.loaded .loading-overlay {
-    display: none;
-}
-
-/* Styling for video section */
+/* Video container styles */
 .video-container {
-    display: flex;
-    overflow-x: auto; /* Enables horizontal scroll */
-    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid layout */
+    gap: 20px;
     padding: 20px;
-    margin: 40px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7); /* Darker shadow for the container */
-    background: #000000; /* Black background for video section */
+    margin: 20px;
+    background: #000; /* Black background */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
+/* Individual video styling */
 .video-container video {
-    flex-shrink: 0; /* Prevents videos from shrinking */
-    width: 45%;
-    margin: 10px 0;
+    width: 100%; /* Full width for each video */
+    height: auto;
     border: 2px solid #ff0000; /* Red border */
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    background: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Soft shadow */
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .video-container video:hover {
     transform: scale(1.05); /* Slight zoom effect */
-    box-shadow: 0 0 15px #00ff00; /* Green glowing effect on hover */
     border-color: #ff8c00; /* Change border color to orange on hover */
-}
-
-/* Scroll effects for container */
-.video-container {
-    background: url('https://www.transparenttextures.com/patterns/diagonal-noise.png'); /* Subtle diagonal noise pattern */
-    background-size: 200px 200px;
-}
-
-/* Smoke-like effect in the background */
-body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('https://www.transparenttextures.com/patterns/diagonal-noise.png'); /* Noise pattern for a smoky texture */
-    opacity: 0.15;
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* Custom scroll bar for the video section */
-.video-container::-webkit-scrollbar {
-    height: 8px;
-}
-
-.video-container::-webkit-scrollbar-track {
-    background: #2c3e50;
-}
-
-.video-container::-webkit-scrollbar-thumb {
-    background: #ff0000;
-    border-radius: 10px;
 }
 
 /* Media query for responsiveness */
 @media (max-width: 768px) {
     .video-container {
-        justify-content: center;
-    }
-    .video-container video {
-        width: 90%; /* Full width for mobile */
-    }
-}/* General body and layout styles */
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-    background: linear-gradient(to right, #2c3e50, #ff3e00); /* Black to red gradient background */
-    color: #ecf0f1;
-    position: relative;
-}
-
-/* Header styles */
-header {
-    text-align: center;
-    margin: 40px 0;
-    font-size: 3em;
-    color: #ff0000; /* Red glow */
-    text-shadow: 
-        0 0 10px #ff0000, 
-        0 0 20px #ff0000, 
-        0 0 30px #ff0000, 
-        0 0 40px #ff0044, 
-        0 0 50px #ff0044, 
-        0 0 75px #ff0044; /* Red to purple glow */
-}
-
-/* Footer styles */
-footer {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 1em;
-    color: #ff8c00; /* Orange glow */
-    text-shadow: 
-        0 0 10px #ff8c00, 
-        0 0 20px #ff8c00, 
-        0 0 30px #ff8c00, 
-        0 0 40px #ff4500, 
-        0 0 50px #ff4500; /* Orange to red glow */
-}
-
-/* Bird flying animation styles */
-.bird {
-    position: fixed;
-    top: 20px;
-    left: -100px;
-    width: 50px;
-    height: 50px;
-    background-image: url('https://www.publicdomainpictures.net/pictures/320000/velka/flying-bird-1527738474R02.jpg'); /* Replace with actual bird image */
-    background-size: contain;
-    animation: fly 5s linear infinite;
-}
-
-@keyframes fly {
-    0% {
-        left: -100px;
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-50px);
-    }
-    100% {
-        left: 100vw;
-        transform: translateY(0);
-    }
-}
-
-/* Loading spinner */
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Dark background for loading screen */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.loading-spinner {
-    border: 4px solid transparent;
-    border-top: 4px solid #ff00ff; /* Pink glow for spinner */
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Hide the loading overlay after the page is loaded */
-body.loaded .loading-overlay {
-    display: none;
-}
-
-/* Styling for video section */
-.video-container {
-    display: flex;
-    overflow-x: auto; /* Enables horizontal scroll */
-    gap: 30px;
-    padding: 20px;
-    margin: 40px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7); /* Darker shadow for the container */
-    background: #000000; /* Black background for video section */
-}
-
-.video-container video {
-    flex-shrink: 0; /* Prevents videos from shrinking */
-    width: 45%;
-    margin: 10px 0;
-    border: 2px solid #ff0000; /* Red border */
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    background: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
-}
-
-.video-container video:hover {
-    transform: scale(1.05); /* Slight zoom effect */
-    box-shadow: 0 0 15px #00ff00; /* Green glowing effect on hover */
-    border-color: #ff8c00; /* Change border color to orange on hover */
-}
-
-/* Scroll effects for container */
-.video-container {
-    background: url('https://www.transparenttextures.com/patterns/diagonal-noise.png'); /* Subtle diagonal noise pattern */
-    background-size: 200px 200px;
-}
-
-/* Smoke-like effect in the background */
-body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('https://www.transparenttextures.com/patterns/diagonal-noise.png'); /* Noise pattern for a smoky texture */
-    opacity: 0.15;
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* Custom scroll bar for the video section */
-.video-container::-webkit-scrollbar {
-    height: 8px;
-}
-
-.video-container::-webkit-scrollbar-track {
-    background: #2c3e50;
-}
-
-.video-container::-webkit-scrollbar-thumb {
-    background: #ff0000;
-    border-radius: 10px;
-}
-
-/* Media query for responsiveness */
-@media (max-width: 768px) {
-    .video-container {
-        justify-content: center;
-    }
-    .video-container video {
-        width: 90%; /* Full width for mobile */
+        grid-template-columns: 1fr; /* Single-column layout for small screens */
     }
 }
