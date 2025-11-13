@@ -1,7 +1,10 @@
-const container = document.getElementById("video-container");
-
-// ✅ All saved videos
+// ======== 1️⃣ List of saved and old videos ========
 const savedVideos = [
+  // Local videos in public/videos/
+  "videos/myvideo1.mp4",
+  "videos/myvideo2.mp4",
+
+  // Old GitHub-hosted videos
   "https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998848452-761.mp4",
   "https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998858687-288.mp4",
   "https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998893726-199.mp4",
@@ -21,27 +24,60 @@ const savedVideos = [
   "https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1736264638943-477.mp4"
 ];
 
-// Function to create video element
-function createVideoElement(src) {
+// ======== 2️⃣ Setup video container ========
+const container = document.querySelector(".video-container");
+const videoElements = [];
+
+// Function to add a video element
+function addVideo(url) {
   const video = document.createElement("video");
-  video.src = src;
+  video.src = url;
   video.controls = true;
-  video.loop = true;
+  video.loop = false;
+  container.appendChild(video);
+  videoElements.push(video);
+
+  // When this video ends, play the next one
+  video.addEventListener("ended", playNextVideo);
   return video;
 }
 
-// Load saved videos
-savedVideos.forEach(src => container.appendChild(createVideoElement(src)));
+// Add all saved/old videos first
+savedVideos.forEach(url => addVideo(url));
 
-// Load TikTok API videos
-async function loadTikTokVideos() {
+// ======== 3️⃣ Fetch TikTok API video ========
+async function loadTikTokVideo() {
   try {
-    const res = await fetch("/api/random?count=5");
+    const res = await fetch("/api/tiktok");
     const data = await res.json();
-    data.videos.forEach(url => container.appendChild(createVideoElement(url)));
+    if (data.url) {
+      addVideo(data.url);
+    }
   } catch (err) {
-    console.error("❌ Failed to load TikTok videos:", err);
+    console.error("Failed to load TikTok video:", err);
   }
 }
 
-loadTikTokVideos();
+// You can call this multiple times to fetch more TikTok videos dynamically
+loadTikTokVideo();
+
+// ======== 4️⃣ Video looping logic ========
+let currentVideoIndex = 0;
+
+function playNextVideo() {
+  if (videoElements.length === 0) return;
+
+  // Pause all videos first
+  videoElements.forEach(v => v.pause());
+
+  // Move to next video
+  currentVideoIndex = (currentVideoIndex + 1) % videoElements.length;
+  videoElements[currentVideoIndex].play();
+}
+
+// ======== 5️⃣ Auto-play the first video on page load ========
+window.addEventListener("DOMContentLoaded", () => {
+  if (videoElements.length > 0) {
+    videoElements[currentVideoIndex].play();
+  }
+});
