@@ -27,7 +27,7 @@ async function fetchRandomVideo(username) {
     const validVideos = videos.filter(v => v.play);
     if (!validVideos.length) return null;
     const randomVideo = validVideos[Math.floor(Math.random() * validVideos.length)];
-    return randomVideo.play;
+    return randomVideo.play; // ✅ Return only the video URL
   } catch {
     return null;
   }
@@ -35,19 +35,11 @@ async function fetchRandomVideo(username) {
 
 export default async function handler(req, res) {
   try {
-    const { username } = req.query;
-    if (username) {
-      const url = await fetchRandomVideo(username);
-      if (!url) return res.status(404).json({ error: `No video found for ${username}` });
-      return res.status(200).json({ url });
-    }
-
     const shuffled = shuffleArray([...usernames]);
     for (const user of shuffled) {
       const url = await fetchRandomVideo(user);
       if (url) return res.status(200).json({ url });
     }
-
     return res.status(404).json({ error: "No valid videos found." });
   } catch (err) {
     console.error(err);
