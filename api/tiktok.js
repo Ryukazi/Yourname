@@ -1,13 +1,10 @@
-import express from "express";
 import axios from "axios";
 
-const router = express.Router();
-
 const usernames = [
-  "haazeiy", "thetrenzz", "saiki.aepz", "qudo.san",
-  "netolodaran", "serox_amv", "jazonamv",
-  "fuglylazy", "xdragonx_1", "deeplay.fx",
-  "grey.ae", "viizz.ae", "lil.monsterx", ".m1k.raze", "kokomi.mp3"
+  "haazeiy","thetrenzz","saiki.aepz","qudo.san",
+  "netolodaran","serox_amv","jazonamv",
+  "fuglylazy","xdragonx_1","deeplay.fx",
+  "_grey.ae","viizz.ae","lil.monsterx",".m1k.raze_","kokomi.mp3"
 ];
 
 function shuffleArray(arr) {
@@ -25,35 +22,35 @@ async function fetchRandomVideo(username) {
       { unique_id: username, count: 20 },
       { headers: { "Content-Type": "application/json" } }
     );
-
     const videos = res.data?.data?.videos;
     if (!videos?.length) return null;
-
-    const valid = videos.filter(v => v.play);
-    if (!valid.length) return null;
-
-    return valid[Math.floor(Math.random() * valid.length)].play;
-  } catch (err) {
-    console.error(`❌ Failed for ${username}:`, err.message);
+    const validVideos = videos.filter(v => v.play);
+    if (!validVideos.length) return null;
+    const randomVideo = validVideos[Math.floor(Math.random() * validVideos.length)];
+    return randomVideo.play;
+  } catch {
     return null;
   }
 }
 
-// Get multiple random TikTok videos
-router.get("/random", async (req, res) => {
-  const count = parseInt(req.query.count) || 5;
-  const shuffled = shuffleArray([...usernames]);
-  const results = [];
+export default async function handler(req, res) {
+  try {
+    const { username } = req.query;
+    if (username) {
+      const url = await fetchRandomVideo(username);
+      if (!url) return res.status(404).json({ error: `No video found for ${username}` });
+      return res.status(200).json({ url });
+    }
 
-  for (const user of shuffled) {
-    const videoUrl = await fetchRandomVideo(user);
-    if (videoUrl) results.push(videoUrl);
-    if (results.length >= count) break;
+    const shuffled = shuffleArray([...usernames]);
+    for (const user of shuffled) {
+      const url = await fetchRandomVideo(user);
+      if (url) return res.status(200).json({ url });
+    }
+
+    return res.status(404).json({ error: "No valid videos found." });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
-
-  if (results.length === 0) return res.status(404).json({ error: "No valid videos found" });
-
-  res.json({ videos: results });
-});
-
-export default router;
+}
