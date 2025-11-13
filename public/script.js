@@ -1,5 +1,3 @@
-// === script.js ===
-
 const container = document.querySelector(".video-container");
 
 // 1️⃣ Saved videos
@@ -40,18 +38,18 @@ async function loadAllVideos() {
   const apiVideos = await fetchApiVideos(5);
   const allVideos = [...savedVideos, ...apiVideos];
 
-  // Optional shuffle
+  // Shuffle videos
   shuffleArray(allVideos);
 
   allVideos.forEach((url, index) => {
     const videoEl = document.createElement("video");
     videoEl.src = url;
     videoEl.controls = true;
-    videoEl.loop = false; // No infinite loop
+    videoEl.loop = false;
     videoEl.id = `video${index + 1}`;
     container.appendChild(videoEl);
 
-    // Play this video, stop all others
+    // Play this video, pause all others
     videoEl.addEventListener("play", () => {
       container.querySelectorAll("video").forEach(v => {
         if (v !== videoEl) v.pause();
@@ -60,7 +58,7 @@ async function loadAllVideos() {
   });
 }
 
-// Helper: shuffle array
+// Shuffle helper
 function shuffleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -69,5 +67,24 @@ function shuffleArray(arr) {
   return arr;
 }
 
-// Initialize
-document.addEventListener("DOMContentLoaded", loadAllVideos);
+// 4️⃣ DOMContentLoaded + fake 8-second loading
+document.addEventListener("DOMContentLoaded", () => {
+  // Show fake loading screen for 8 seconds
+  setTimeout(() => {
+    // Hide loading screen
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) loadingScreen.style.display = 'none';
+
+    // Show page content
+    const header = document.querySelector('header');
+    const videoContainer = document.getElementById('video-container');
+    const footer = document.querySelector('footer');
+
+    if (header) header.style.display = 'block';
+    if (videoContainer) videoContainer.style.display = 'grid';
+    if (footer) footer.style.display = 'block';
+  }, 8000);
+
+  // Load videos in background
+  loadAllVideos();
+});
