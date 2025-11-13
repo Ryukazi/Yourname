@@ -1,10 +1,7 @@
-// ======== 1️⃣ List of saved and old videos ========
+// ======== 1️⃣ List of saved/old videos ========
 const savedVideos = [
-  // Local videos in public/videos/
   "videos/myvideo1.mp4",
   "videos/myvideo2.mp4",
-
-  // Old GitHub-hosted videos
   "https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998848452-761.mp4",
   "https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998858687-288.mp4",
   "https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998893726-199.mp4",
@@ -45,21 +42,23 @@ function addVideo(url) {
 // Add all saved/old videos first
 savedVideos.forEach(url => addVideo(url));
 
-// ======== 3️⃣ Fetch TikTok API video ========
-async function loadTikTokVideo() {
+// ======== 3️⃣ Fetch multiple TikTok API videos ========
+async function loadTikTokVideos() {
   try {
-    const res = await fetch("/api/tiktok");
+    const res = await fetch("/api/tiktok"); // Your endpoint
     const data = await res.json();
-    if (data.url) {
-      addVideo(data.url);
+
+    // Assuming API returns array of URLs like { videos: ["url1", "url2", ...] }
+    if (data.videos && data.videos.length > 0) {
+      data.videos.forEach(url => addVideo(url));
     }
   } catch (err) {
-    console.error("Failed to load TikTok video:", err);
+    console.error("Failed to load TikTok videos:", err);
   }
 }
 
-// You can call this multiple times to fetch more TikTok videos dynamically
-loadTikTokVideo();
+// Call API once (can call multiple times to fetch more)
+loadTikTokVideos();
 
 // ======== 4️⃣ Video looping logic ========
 let currentVideoIndex = 0;
