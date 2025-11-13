@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right, #2c3e50, #ff3e00);
+  color: #fff;
+}
+
+header h1 {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 2em;
+  color: #ff0000;
+  text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0044;
+}
+
+.video-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+video {
+  width: 100%;
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  transition: 0.3s;
+}
+
+video:hover {
+  transform: scale(1.05);
+  border-color: #ff8c00;
+}
+
+footer {
+  text-align: center;
+  margin: 20px 0;
+  text-shadow: 0 0 10px #ff8c00;
+}
