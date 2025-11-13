@@ -1,7 +1,9 @@
-// ======== 1️⃣ List of saved/old videos ========
+// === script.js ===
+
+const container = document.querySelector(".video-container");
+
+// 1️⃣ Saved videos
 const savedVideos = [
-  "videos/myvideo1.mp4",
-  "videos/myvideo2.mp4",
   "https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998848452-761.mp4",
   "https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998858687-288.mp4",
   "https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1735998893726-199.mp4",
@@ -21,62 +23,51 @@ const savedVideos = [
   "https://raw.githubusercontent.com/zoro-77/video-hosting/main/cache/video-1736264638943-477.mp4"
 ];
 
-// ======== 2️⃣ Setup video container ========
-const container = document.querySelector(".video-container");
-const videoElements = [];
-
-// Function to add a video element
-function addVideo(url) {
-  const video = document.createElement("video");
-  video.src = url;
-  video.controls = true;
-  video.loop = false;
-  container.appendChild(video);
-  videoElements.push(video);
-
-  // When this video ends, play the next one
-  video.addEventListener("ended", playNextVideo);
-  return video;
-}
-
-// Add all saved/old videos first
-savedVideos.forEach(url => addVideo(url));
-
-// ======== 3️⃣ Fetch multiple TikTok API videos ========
-async function loadTikTokVideos() {
+// 2️⃣ Fetch multiple videos from API
+async function fetchApiVideos(count = 5) {
   try {
-    const res = await fetch("/api/tiktok"); // Your endpoint
+    const res = await fetch(`/api/tiktok?count=${count}`);
     const data = await res.json();
-
-    // Assuming API returns array of URLs like { videos: ["url1", "url2", ...] }
-    if (data.videos && data.videos.length > 0) {
-      data.videos.forEach(url => addVideo(url));
-    }
+    return Array.isArray(data.videos) ? data.videos : [];
   } catch (err) {
-    console.error("Failed to load TikTok videos:", err);
+    console.error("❌ Failed to fetch API videos:", err);
+    return [];
   }
 }
 
-// Call API once (can call multiple times to fetch more)
-loadTikTokVideos();
+// 3️⃣ Load all videos (saved + API)
+async function loadAllVideos() {
+  const apiVideos = await fetchApiVideos(5);
+  const allVideos = [...savedVideos, ...apiVideos];
 
-// ======== 4️⃣ Video looping logic ========
-let currentVideoIndex = 0;
+  // Optional shuffle
+  shuffleArray(allVideos);
 
-function playNextVideo() {
-  if (videoElements.length === 0) return;
+  allVideos.forEach((url, index) => {
+    const videoEl = document.createElement("video");
+    videoEl.src = url;
+    videoEl.controls = true;
+    videoEl.loop = false; // No infinite loop
+    videoEl.id = `video${index + 1}`;
+    container.appendChild(videoEl);
 
-  // Pause all videos first
-  videoElements.forEach(v => v.pause());
-
-  // Move to next video
-  currentVideoIndex = (currentVideoIndex + 1) % videoElements.length;
-  videoElements[currentVideoIndex].play();
+    // Play this video, stop all others
+    videoEl.addEventListener("play", () => {
+      container.querySelectorAll("video").forEach(v => {
+        if (v !== videoEl) v.pause();
+      });
+    });
+  });
 }
 
-// ======== 5️⃣ Auto-play the first video on page load ========
-window.addEventListener("DOMContentLoaded", () => {
-  if (videoElements.length > 0) {
-    videoElements[currentVideoIndex].play();
+// Helper: shuffle array
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-});
+  return arr;
+}
+
+// Initialize
+document.addEventListener("DOMContentLoaded", loadAllVideos);
